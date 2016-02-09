@@ -1,0 +1,16 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <!--<link rel="stylesheet" href="todo.css">-->
+  </head>
+  <body>
+    <div ng-controller="TodoListController as todoList">
+    		{{todoList.title}}
+    		<button type="button" ng-click="todoList.submit()">send</button>
+      </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,17 @@
+{
+  "name": "snmp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "snmp-native": "^1.0.20",
+    "standard": "^5.4.1"
+  },
+  "devDependencies": {},
+  "description": ""
+}
