@@ -6,9 +6,20 @@ angular.module('todoApp', [])
     todoList.submit = function (){
       send()
     }
+    todoList.submit2 = function () {
+      Subtree()
+    }
+    function Subtree () {
+      $http.get('/subtree')
+          .then (function success (response){
+            console.log(response)
+          } , function error (response){
+            alert(response)
+          })
+    }
 
 function send() {
-    $http.get('/data')
+    $http.get('/name')
           .then(function success (response) {
            console.log(response)
         }, function error (response) {
