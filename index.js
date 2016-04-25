@@ -82,10 +82,21 @@ session6.getSubtree({ oid: '.1.3.6.1.2.1.4.21.1.1' }, function (err, varbinds) {
     // console.log(varbinds) 
     varbinds.forEach(function (vb) {
       networkAll.push(vb)
-      console.log(networkAll)
+      // console.log(networkAll) 
     })
   }
   session6.close()
+})
+var speedTest = require('speedtest-net')
+
+test = speedTest({maxTime: 5000})
+
+test.on('data', function (data) {
+  console.dir(data)
+})
+
+test.on('error', function (err) {
+  console.error(err)
 })
 // ///////////////////////////////////////////////////////////////
 app.get('/name', function (req, res) {

@@ -10,6 +10,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "snmp-native": "^1.0.20",
+    "speedtest-net": "^1.2.5",
     "standard": "^5.4.1"
   },
   "devDependencies": {},
