@@ -1,17 +1,42 @@
 <!doctype html>
 <html ng-app="todoApp">
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <script src="todo.js"></script>
-    <!--<link rel="stylesheet" href="todo.css">-->
-  </head>
-  <body>
-    <div ng-controller="TodoListController as todoList">
-    		{{todoList.title}}
-    		<button type="button" ng-click="todoList.submit()">name</button>
-        <button type="button" ng-click="todoList.submit2()">interface</button>
-      </div>
-  </body>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="todo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="todo.css">-->
+</head>
+<body ng-controller="appController as app">
+    <!-- <canvas id="myLineChart" width="400" height="200"></canvas> -->
+    <!-- <br>
+    <button type="button" ng-click="app.submit2()">interface</button>
+    <br> -->
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">Server</a></li>
+      <li role="presentation" ng-click="page=2"><a href="#">interface</a></li>
+      <li role="presentation" ng-click="page=3"><a href="#">ipinterface</a></li>
+    </ul>
+    <div ng-show="page === 1">
+        {{app.title}}
+        <br> type : {{app.os['type']}}
+        <br> value : {{app.os['value']}}
+        <br> oid : {{app.os['oid']}}
+        <br>
+  </div>
+  <div ng-show="page === 2">
+    <div ng-repeat="show in app.ipnetwork.data">
+      {{show.oid}}   {{show.value}} 
+      <hr>
+    </div>
+  </div>
+  <div ng-show="page === 3">
+    test
+  </div>
+</body>
+
 </html>
-
-

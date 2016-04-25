@@ -1,29 +1,33 @@
+/*global angular alert*/
 angular.module('todoApp', [])
-  .controller('TodoListController', function($http) {
-    var todoList = this;
-
-    todoList.title = 'test'
-    todoList.submit = function (){
-      send()
-    }
-    todoList.submit2 = function () {
-      Subtree()
-    }
+  .controller('appController', function ($http) {
+    var app = this
+    Name()
+    send()
+    Subtree()
+    app.title = 'Monitor'
+    // app.ipnetwork = []
     function Subtree () {
       $http.get('/subtree')
-          .then (function success (response){
-            console.log(response)
-          } , function error (response){
-            alert(response)
-          })
+        .then(function success (response) {
+          app.ipnetwork = response
+        }, function error (response) {
+          alert(response)
+        })
+    }
+    function Name () {
+      $http.get('/name').then(function success (response) {
+        app.os = response.data
+        console.log(app.os)
+      })
     }
 
-function send() {
-    $http.get('/name')
-          .then(function success (response) {
-           console.log(response)
+    function send () {
+      $http.get('/name')
+        .then(function success (response) {
+          console.log(response)
         }, function error (response) {
           alert(response.data.message)
         })
-      }
+    }
   })
