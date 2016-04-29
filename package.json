@@ -8,7 +8,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "network": "^0.1.3",
+    "network-sniffer": "^0.1.0",
     "snmp-native": "^1.0.20",
     "speedtest-net": "^1.2.5",
     "standard": "^5.4.1"
