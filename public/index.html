@@ -5,6 +5,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
   <script src="todo.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <!-- Optional theme -->
@@ -17,7 +18,8 @@
 <body ng-controller="appController as app">
   <ul class="nav nav-tabs">
     <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">Server</a></li>
-    <li role="presentation" ng-click="page=2"><a href="#">speedinterface</a></li>
+    <li role="presentation" ng-click="page=2"><a href="#">interface</a></li>
+    <li role="presentation" ng-click="page=3"><a href="#">Graph</a></li>
     <li role="presentation"><a href="speed.html">ipinterface</a></li>
   </ul>
   <div ng-show="page === 1">
@@ -25,28 +27,33 @@
       {{app.title}}
       <div ng-repeat="show in app.name">
         discription : {{show.discription}}
-        <br> uptime :{{show.uptime}}
+        <br> uptime :{{show.uptime}} // {{app.setTime(show.uptime)}}
         <br> name : {{show.name}}
       </div>
       <hr>
       <br>
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-2">
           <div ng-repeat="show in app.iproute">
             {{show.iproute[0]}}.{{show.iproute[1]}}.{{show.iproute[2]}}.{{show.iproute[3]}}
           </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-2">
           <div ng-repeat="show in app.subnet">
             {{show.subnet[0]}}.{{show.subnet[1]}}.{{show.subnet[2]}}.{{show.subnet[3]}}
           </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-2">
           <div ng-repeat="show in app.iproutetype">
             {{(show.type===3 ? 'direct':'indirect')}}
           </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-2">
+          <div ng-repeat="show in app.iproutetype">
+            {{(show.type===3 ? 'direct':'indirect')}}
+          </div>
+        </div>
+        <div class="col-xs-2">
           <div ng-repeat="show in app.iprouteprotocol">
             {{(show.protocol ===2 ? 'local' : 'rip')}}
           </div>
@@ -57,9 +64,22 @@
   </div>
   <div ng-show="page === 2">
     <div class="container">
-
+      <div class="col-xs-2">
+        <div ng-repeat="show in app.interface">
+          {{show.interface}}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div ng-repeat="show in app.status">
+          {{(show.status === 1 ? 'up' : 'down')}}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div ng-repeat="show in app.time">
+          {{app.setTime(show.time)}}
+        </div>
+      </div>
     </div>
   </div>
 </body>
-
 </html>

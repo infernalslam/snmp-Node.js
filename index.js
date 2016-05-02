@@ -17,7 +17,7 @@ var session5 = new snmp.Session({ host: host, community: community })
 var oid1 = [1, 3, 6, 1, 2, 1, 1]
 var oid3 = '.1.3.6.1.2.1.4.21.1.11' // subnet
 var oid4 = '.1.3.6.1.2.1.4.21.1.1' // iproute
-var oid5 = '.1.3.6.1.2.1.2.2.1.2'
+
 var vb = []
 var ip = []
 var subnet = []
@@ -48,13 +48,7 @@ session4.getSubtree({ oid: oid4 }, function (err, varbinds) {
   })
   session4.close()
 })
-session5.getSubtree({ oid: oid5 }, function (err, varbinds) {
-  varbinds.forEach(function (data) {
-    // console.log(data.value)
-    vlan.push({vlan: data.value})
-  })
-  session5.close()
-})
+
 test = speedTest({maxTime: 3000})
 test.on('data', function (data) {
   // console.dir(data)
@@ -62,14 +56,17 @@ test.on('data', function (data) {
 })
 // //////////////////////////////
 // admin work
+var name_interface = []
 var nameinterface = new snmp.Session({ host: host, community: community })
 var oid_nameinterface = '.1.3.6.1.2.1.2.2.1.2'
 nameinterface.getSubtree({ oid: oid_nameinterface }, function (err, varbinds) {
   varbinds.forEach(function (data) {
     // console.log(data.value) 
+    name_interface.push({interface: data.value})
   })
   nameinterface.close()
 })
+
 var type_interface = new snmp.Session({ host: host, community: community })
 var oid_inter = '.1.3.6.1.2.1.2.2.1.3'
 type_interface.getSubtree({ oid: oid_inter }, function (err, varbinds) {
@@ -96,20 +93,24 @@ type_speed.getSubtree({ oid: oid_speed }, function (err, varbinds) {
   type_speed.close()
 })
 
+var status = []
 var type_status = new snmp.Session({ host: host, community: community })
 var oid_status = '.1.3.6.1.2.1.2.2.1.8'
 type_status.getSubtree({ oid: oid_status }, function (err, varbinds) {
   varbinds.forEach(function (data) {
     // console.log(data.value) 
+    status.push({status: data.value})
   })
   type_status.close()
 })
 
+var time = []
 var type_statusTime = new snmp.Session({ host: host, community: community })
 var oid_statusTime = '.1.3.6.1.2.1.2.2.1.9'
 type_statusTime.getSubtree({ oid: oid_statusTime }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    // console.log(data.value)  
+    // console.log(data.value)
+    time.push({time: data.value})
   })
   type_statusTime.close()
 })
@@ -130,7 +131,7 @@ var oid_iproute_protocol = '.1.3.6.1.2.1.4.21.1.9'
 iproute_protocol.getSubtree({ oid: oid_iproute_protocol }, function (err, varbinds) {
   varbinds.forEach(function (data) {
     iprouteprotocol.push({protocol: data.value})
-    // console.log(data.value)
+  // console.log(data.value)
   })
   iproute_protocol.close()
 })
@@ -155,6 +156,15 @@ app.get('/iproutetype', function (req, res) {
 })
 app.get('/iprouteprotocol', function (req, res) {
   res.send(iprouteprotocol)
+})
+app.get('/status', function (req, res) {
+  res.send(status)
+})
+app.get('/interface', function (req, res) {
+  res.send(name_interface)
+})
+app.get('/time', function (req, res) {
+  res.send(time)
 })
 app.use(express.static('public'))
 app.listen(7001, function () {
