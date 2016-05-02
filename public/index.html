@@ -10,13 +10,15 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <!--<link rel="stylesheet" href="todo.css">-->
+  <!-- <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1"> -->
+  <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400"> -->
 </head>
 
 <body ng-controller="appController as app">
   <ul class="nav nav-tabs">
     <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">Server</a></li>
-    <li role="presentation" ng-click="page=2"><a href="#">interface</a></li>
-    <li role="presentation" ng-click="page=3"><a href="#">ipinterface</a></li>
+    <li role="presentation" ng-click="page=2"><a href="#">speedinterface</a></li>
+    <li role="presentation"><a href="speed.html">ipinterface</a></li>
   </ul>
   <div ng-show="page === 1">
     <div class="container">
@@ -39,18 +41,25 @@
             {{show.subnet[0]}}.{{show.subnet[1]}}.{{show.subnet[2]}}.{{show.subnet[3]}}
           </div>
         </div>
+        <div class="col-xs-3">
+          <div ng-repeat="show in app.iproutetype">
+            {{(show.type===3 ? 'direct':'indirect')}}
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div ng-repeat="show in app.iprouteprotocol">
+            {{(show.protocol ===2 ? 'local' : 'rip')}}
+          </div>
+        </div>
       </div>
       <!-- container-->
     </div>
-    <div ng-show="page === 2">
-      <div ng-repeat="show in app.ipnetwork.data">
-        {{show.oid}} {{show.value}}
-        <hr>
-      </div>
+  </div>
+  <div ng-show="page === 2">
+    <div class="container">
+
     </div>
-    <div ng-show="page === 3">
-      test
-    </div>
+  </div>
 </body>
 
 </html>
