@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var snmp = require('snmp-native')
 var speedTest = require('speedtest-net')
-var net_snmp = require('net-snmp')
+// var net_snmp = require('net-snmp')
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 mongoose.connect('mongodb://localhost:27017/db_network')
@@ -10,17 +10,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 var data = require('./models/data/data.route.js')
 app.use('/api/data', data)
-// var Model = require('./models/data/data.schema.js')
-// app.post('/', function (req, res, next) {
-//   var obj = new Model(req.body)
-//   obj.save(function (err, obj) {
-//     if (err) {
-//       res.status(500).send(err)
-//     } else {
-//       res.send(obj)
-//     }
-//   })
-// })
 // var host = '10.1.160.1' // fitmwifi
 var host = '10.41.160.1' // fitmwifi
 // 10.4.15.1
@@ -66,10 +55,10 @@ session4.getSubtree({ oid: oid4 }, function (err, varbinds) {
   })
   session4.close()
 })
-
-test = speedTest({maxTime: 3000})
+// //////// momgodb ///////
+var test = speedTest({maxTime: 3000})
 test.on('data', function (data) {
-  // console.dir(data)
+  console.dir(data)
   speed.push(data)
 })
 // //////////////////////////////

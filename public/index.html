@@ -6,11 +6,20 @@
   <script src="todo.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.min.js"></script>
+  <link rel="stylesheet" href="load.css">
+  <script src="speed.js"></script>
+  <link rel="stylesheet" href="speed.css">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.4/angular-timer.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-  <!--<link rel="stylesheet" href="todo.css">-->
+  <!-- <link rel="stylesheet" href="load.scss"> -->
   <!-- <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1"> -->
   <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400"> -->
 </head>
@@ -20,8 +29,25 @@
     <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">Server</a></li>
     <li role="presentation" ng-click="page=2"><a href="#">interface</a></li>
     <li role="presentation" ng-click="page=3"><a href="#">Graph</a></li>
-    <li role="presentation"><a href="speed.html">ipinterface</a></li>
+    <li role="presentation" ng-click="page=4"><a href="">speed</a></li>
   </ul>
+  <div ng-show="app.load">
+    <div class="container">
+    <div class="loading">
+      <div class="intro-stars"></div>
+      <div class="ufo light"></div>
+      <div class="ufo">
+        <div class="loading-small-cloud"></div>
+        <div class="loading-small-cloud reverse"></div>
+        <div class="small-ghost"></div>
+      </div>
+      <div class="loading-text">
+        Loading...
+      </div>
+    </div>
+  </div>
+</div>
+   </div> 
   <div ng-show="page === 1">
     <div class="container">
       {{app.title}}
@@ -78,6 +104,58 @@
         <div ng-repeat="show in app.time">
           {{app.setTime(show.time)}}
         </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="page === 3">
+    <div class="container">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+  </div>
+  <div ng-show="page === 4">
+    <div class="container">
+      <br>
+      <div id="content" class="content">
+      	<h4 id="answerTitle">
+          Speed test<span id="ip">202.44.47.252</span>
+      </h4>
+      	<div id="panel">
+      		<div class="verticalLine"></div>
+      		<canvas id="canvas" width="300px" height="300px"></canvas>
+      		<div id="value1" class="value">0</div>
+      		<div id="value2" class="value">1</div>
+      		<div id="value3" class="value">5</div>
+      		<div id="value4" class="value">10</div>
+      		<div id="value5" class="value">20</div>
+      		<div id="value6" class="value">30</div>
+      		<div id="value7" class="value">50</div>
+      		<div id="value8" class="value">75</div>
+      		<div id="value9" class="value">100</div>
+      		<div id="speed" class="b_focusTextSmall"></div>
+      		<div id="unit"></div>
+       		<button id="button" type="button" class="btn btn-bing" data-inst-name="action" data-inst-title="click">Start</button>
+      	</div>
+      	<div id="result">
+      		<div class="verticalLine"></div>
+      		<div id="pingBox" class="resultBox lite">
+      			<div id="pingTitle" class="resultTitle">Ping</div>
+      			<div id="pingValue" class="b_secondaryFocus resultValue">-</div>
+      			<div id="pingBar" class="hidden">
+      				<div id="bar"></div>
+      				<div id="barFill"></div>
+      			</div>
+      		</div>
+      		<div id="downloadBox" class="resultBox lite">
+      			<div id="downloadTitle" class="resultTitle">Download</div>
+      			<div id="downloadValue" class="b_secondaryFocus resultValue">-</div>
+      		</div>
+      		<div id="uploadBox" class="resultBox lite">
+      			<div id="uploadTitle" class="resultTitle">Upload</div>
+      			<div id="uploadValue" class="b_secondaryFocus resultValue">-</div>
+      		</div>
+      		<div id="horizontalLine1" class="horizontalLine"></div>
+      		<div id="horizontalLine2" class="horizontalLine"></div>
+      	</div>
       </div>
     </div>
   </div>
