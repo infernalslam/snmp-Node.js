@@ -3,13 +3,13 @@ var app = express()
 var snmp = require('snmp-native')
 var speedTest = require('speedtest-net')
 // var net_snmp = require('net-snmp')
-var mongoose = require('mongoose')
+// var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
-mongoose.connect('mongodb://localhost:27017/db_network')
+// mongoose.connect('mongodb://localhost:27017/db_network')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-var data = require('./models/data/data.route.js')
-app.use('/api/data', data)
+// var data = require('./models/data/data.route.js')
+// app.use('/api/data', data)
 // var host = '10.1.160.1' // fitmwifi
 var host = '10.41.160.1' // fitmwifi
 // 10.4.15.1
@@ -24,6 +24,10 @@ var session5 = new snmp.Session({ host: host, community: community })
 var oid1 = [1, 3, 6, 1, 2, 1, 1]
 var oid3 = '.1.3.6.1.2.1.4.21.1.11' // subnet
 var oid4 = '.1.3.6.1.2.1.4.21.1.1' // iproute
+setRequestTime()
+setInterval(function () {
+  setRequestTime()
+}, 10000)
 
 var vb = []
 var ip = []
@@ -56,11 +60,13 @@ session4.getSubtree({ oid: oid4 }, function (err, varbinds) {
   session4.close()
 })
 // //////// momgodb ///////
-var test = speedTest({maxTime: 3000})
-test.on('data', function (data) {
-  console.dir(data)
-  speed.push(data)
-})
+function setRequestTime () {
+  var test = speedTest({maxTime: 3000})
+  test.on('data', function (data) {
+    console.dir(data)
+    speed.push(data)
+  })
+}
 // //////////////////////////////
 // admin work
 var name_interface = []

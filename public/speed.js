@@ -1542,7 +1542,7 @@ var SpeedTest;
         try {
           ThirdParty.hide(this.pingBar);
           this.updateUiLite(this.pingBox);
-          t === 0 ? ThirdParty.setText(this.pingValue, "<1 " + n.Consts.timeUnit) : ThirdParty.setText(this.pingValue, t.toString() + " " + n.Consts.timeUnit)
+          (t === 0 ? ThirdParty.setText(this.pingValue, "อยู่ในขั้นน้อย ") : ThirdParty.setText(this.pingValue, t.toString() + " " + n.Consts.timeUnit))
         } catch (i) {
           ThirdParty.logError("updateUiPing: " + i.toString());
           throw i;

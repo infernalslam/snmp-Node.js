@@ -52,7 +52,7 @@ angular.module('todoApp', [])
       })
     }
     app.setTime = function (time) {
-      return (time / 360000)
+      return humanizeDuration(time)
     }
     chartjs()
     function chartjs () {
@@ -60,7 +60,7 @@ angular.module('todoApp', [])
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
           {
-            label: 'My First dataset',
+            label: '202.44.47.252',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -78,7 +78,7 @@ angular.module('todoApp', [])
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: [65, 59, 80, 81, 56, 55, 40]
           }
         ]
       }
@@ -88,16 +88,27 @@ angular.module('todoApp', [])
         data: data
       })
     }
-    app.finished = function (index) {
-      console.log(index)
-    }
     app.load = true
     var count = 0
-    $interval(function () {
+    var loading = $interval(function () {
       count++
       console.log(count)
       if (count === 2) {
         app.load = false
+        $interval.cancel(loading)
       }
     }, 10000)
+    $interval(function () {
+      app.current_time = moment(new Date()).format('LTS')
+    }, 10)
+    getSpeed()
+    $interval(function () {
+      getSpeed()
+    }, 2000)
+    function getSpeed () {
+      $http.get('/speed').then(function success (response) {
+        app.speed = response.data
+        console.log(app.speed)
+      })
+    }
   })
