@@ -26,10 +26,10 @@
 
 <body ng-controller="appController as app">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">Server</a></li>
-    <li role="presentation" ng-click="page=2"><a href="#">interface</a></li>
-    <li role="presentation" ng-click="page=3"><a href="#">Graph</a></li>
-    <li role="presentation" ng-click="page=4"><a href="">speed</a></li>
+    <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">ServerMonitor</a></li>
+    <li role="presentation" ng-click="page=2"><a href="#">Intrerface</a></li>
+    <li role="presentation" ng-click="page=3"><a href="#">Graph&Log</a></li>
+    <li role="presentation" ng-click="page=4"><a href="">Mangement</a></li>
   </ul>
   <div ng-show="app.load">
     <div class="container">
@@ -157,7 +157,7 @@
       </div>
       <br>
       <div ng-repeat="show in app.speed">
-        {{show}}
+        Server : {{show.client.ip}}  to : {{show.server.host}} location : {{show.server.country}} : {{show.server.location}} Download: {{show.speeds.download}} upload: {{show.speeds.upload}}isp:{{show.client.isp}} <hr><br>
       </div>
     </div>
   </div>
