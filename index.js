@@ -61,7 +61,7 @@ session4.getSubtree({ oid: oid4 }, function (err, varbinds) {
 })
 // //////// momgodb ///////
 function setRequestTime () {
-  var test = speedTest({maxTime: 3000})
+  var test = speedTest({maxTime: 10000})
   test.on('data', function (data) {
     console.dir(data)
     speed.push(data)

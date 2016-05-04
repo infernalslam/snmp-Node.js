@@ -1,4 +1,4 @@
-/*global angular */
+/*global angular humanizeDuration moment  Chart*/
 angular.module('todoApp', [])
   .controller('appController', function ($http, $interval) {
     var app = this
@@ -11,6 +11,17 @@ angular.module('todoApp', [])
     getstatus()
     getnameinterface()
     getinterfaceTime()
+    $interval(function () {
+      app.current_time = moment(new Date()).format('LTS')
+    }, 10)
+    getSpeed()
+    app.loadforgrap = 0
+    $interval(function () {
+      getSpeed()
+      test()
+      getchart()
+      app.loadforgrap++
+    }, 7000)
     function getName () {
       $http.get('/name').then(function success (response) {
         app.name = response.data
@@ -54,10 +65,13 @@ angular.module('todoApp', [])
     app.setTime = function (time) {
       return humanizeDuration(time)
     }
-    chartjs()
-    function chartjs () {
-      var data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+
+    // /////
+    var data
+    var myLineChart
+    function getchart () {
+      data = {
+        labels: app.label,
         datasets: [
           {
             label: '202.44.47.252',
@@ -66,7 +80,6 @@ angular.module('todoApp', [])
             backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: 'rgba(75,192,192,1)',
             borderCapStyle: 'butt',
-            borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
             pointBorderColor: 'rgba(75,192,192,1)',
@@ -78,16 +91,18 @@ angular.module('todoApp', [])
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: app.data
           }
         ]
       }
       var ctx = document.getElementById('myChart')
-      var myLineChart = new Chart(ctx, {
+      myLineChart = new Chart(ctx, {
         type: 'line',
         data: data
       })
+      console.log(myLineChart)
     }
+    // ///
     app.load = true
     var count = 0
     var loading = $interval(function () {
@@ -98,17 +113,28 @@ angular.module('todoApp', [])
         $interval.cancel(loading)
       }
     }, 10000)
-    $interval(function () {
-      app.current_time = moment(new Date()).format('LTS')
-    }, 10)
-    getSpeed()
-    $interval(function () {
-      getSpeed()
-    }, 2000)
+    // //////////////////////
+    var pass = false
+    // //////////////////////
     function getSpeed () {
       $http.get('/speed').then(function success (response) {
         app.speed = response.data
-        console.log(app.speed)
+        if (response.data.length !== 0) {
+          pass = true
+        }
       })
+    }
+    app.label = []
+    app.data = []
+    function test () {
+      if (app.speed.length === 0) {
+        console.log('wait here')
+      } if (pass) {
+        app.speed.forEach(function (err, index) {
+          console.log(app.label)
+          app.label.push(app.speed[index].server.sponsor)
+          app.data.push(app.speed[index].speeds.download)
+        })
+      }
     }
   })
