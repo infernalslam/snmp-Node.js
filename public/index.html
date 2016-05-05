@@ -30,6 +30,7 @@
     <li role="presentation" ng-click="page=2"><a href="#">Intrerface</a></li>
     <li role="presentation" ng-click="page=3"><a href="#">Graph&Log</a></li>
     <li role="presentation" ng-click="page=4"><a href="">Mangement</a></li>
+    <li role="presentation"><a href="">{{app.current_time}}</a></li>
   </ul>
   <div ng-show="app.load">
     <div class="container">
@@ -67,11 +68,6 @@
         <div class="col-xs-2">
           <div ng-repeat="show in app.subnet">
             {{show.subnet[0]}}.{{show.subnet[1]}}.{{show.subnet[2]}}.{{show.subnet[3]}}
-          </div>
-        </div>
-        <div class="col-xs-2">
-          <div ng-repeat="show in app.iproutetype">
-            {{(show.type===3 ? 'direct':'indirect')}}
           </div>
         </div>
         <div class="col-xs-2">
@@ -157,9 +153,12 @@
       	</div>
       </div>
       <br>
-      <div ng-repeat="show in app.speed">
+      <!-- <div ng-repeat="show in app.speed">
         Server : {{show.client.ip}}  to : {{show.server.host}} location : {{show.server.country}} : {{show.server.location}} Download: {{show.speeds.download}} upload: {{show.speeds.upload}}isp:{{show.client.isp}} <hr><br>
-      </div>
+      </div> -->
+      <select multiple class="form-control">
+        <option ng-repeat="show in app.speed">Server : {{show.client.ip}}  to : {{show.server.host}} location : {{show.server.country}} : {{show.server.location}} Download: {{show.speeds.download}} upload: {{show.speeds.upload}}isp:{{show.client.isp}}</option>
+      </select>
     </div>
   </div>
 </body>
