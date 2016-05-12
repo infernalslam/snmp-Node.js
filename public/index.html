@@ -1,99 +1,217 @@
 <!doctype html>
 <html ng-app="todoApp">
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-  <script src="todo.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.min.js"></script>
-  <link rel="stylesheet" href="load.css">
-  <script src="speed.js"></script>
-  <link rel="stylesheet" href="speed.css">
-  <script src="lib\humanize-duration.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.4/angular-timer.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-  <!-- <link rel="stylesheet" href="load.scss"> -->
-  <!-- <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1"> -->
-  <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400"> -->
-</head>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.min.js"></script>
+    <link rel="stylesheet" href="load.css">
+    <script src="speed.js"></script>
+    <link rel="stylesheet" href="speed.css">
+    <script src="lib\humanize-duration.js"></script>
+    <link rel="stylesheet" href="int.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.4/angular-timer.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="load.scss"> -->
+    <!-- <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1"> -->
+    <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400"> -->
+  </head>
 
-<body ng-controller="appController as app">
-  <ul class="nav nav-tabs">
-    <li role="presentation" class="active" ng-init="page=1" ng-click="page=1"><a href="#">ServerMonitor</a></li>
-    <li role="presentation" ng-click="page=2"><a href="#">Intrerface</a></li>
-    <li role="presentation" ng-click="page=3"><a href="#">Graph&Log</a></li>
-    <li role="presentation" ng-click="page=4"><a href="">Mangement</a></li>
-    <li role="presentation"><a href="">{{app.current_time}}</a></li>
-  </ul>
-  <div ng-show="app.load">
-    <div class="container">
-    <div class="loading">
-      <div class="intro-stars"></div>
-      <div class="ufo light"></div>
-      <div class="ufo">
-        <div class="loading-small-cloud"></div>
-        <div class="loading-small-cloud reverse"></div>
-        <div class="small-ghost"></div>
-      </div>
-      <div class="loading-text">
-        Loading...
+  <body ng-controller="appController as app">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active" ng-init="page=1" ng-click="page=1">
+        <a href="#">ServerMonitor</a>
+      </li>
+      <li role="presentation" ng-click="page=2">
+        <a href="#">Intrerface</a>
+      </li>
+      <li role="presentation" ng-click="page=3">
+        <a href="#">Graph&Log</a>
+      </li>
+      <li role="presentation" ng-click="page=4">
+        <a href="">Mangement</a>
+      </li>
+      <li role="presentation">
+        <a href="">{{app.current_time}}</a>
+      </li>
+    </ul>
+    <div ng-show="app.load">
+      <div class="container">
+        <div class="loading">
+          <div class="intro-stars"></div>
+          <div class="ufo light"></div>
+          <div class="ufo">
+            <div class="loading-small-cloud"></div>
+            <div class="loading-small-cloud reverse"></div>
+            <div class="small-ghost"></div>
+          </div>
+          <div class="loading-text">
+            Loading...
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-   </div> 
   <div ng-show="page === 1">
     <div class="container">
-      {{app.title}}
+      <h3>{{app.title}}</h3>
+      SOFTWARE : {{app.name[0].discription}} <br><br>
       <div ng-repeat="show in app.name">
-        discription : {{show.discription}}
-        <br> uptime :{{app.setTime(show.uptime)}}
-        <br> name : {{show.name}}
-        <hr>
-        <br>
-      </div>
-      <!-- <div class="row">
-        <div class="col-xs-2">
-          <div ng-repeat="show in app.iproute">
-            {{show.iproute[0]}}.{{show.iproute[1]}}.{{show.iproute[2]}}.{{show.iproute[3]}}
-          </div>
-        </div>
-        <div class="col-xs-2">
-          <div ng-repeat="show in app.subnet">
-            {{show.subnet[0]}}.{{show.subnet[1]}}.{{show.subnet[2]}}.{{show.subnet[3]}}
-          </div>
-        </div>
-        <div class="col-xs-2">
-          <div ng-repeat="show in app.iproutetype">
-            {{(show.type===3 ? 'direct':'indirect')}}
-          </div>
-        </div>
-        <div class="col-xs-2">
-          <div ng-repeat="show in app.iprouteprotocol">
-            {{(show.protocol ===2 ? 'local' : 'rip')}}
-          </div>
-        </div>
-      </div> -->
-      <!-- container-->
+        <span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
+        uptime :{{app.setTime(show.uptime)}}
+        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+        name :{{show.name}}
+        <hr><br>
+      </div><!-- container-->
     </div>
-  </div> <!--close page1-->
+  </div>
+  <!--close page1-->
   <div ng-show="page === 2">
     <div class="container">
-      <div class="col-xs-2">
-        update....
+      <div class="col-xs-3">
+        <h5>เลือกอุปกรณ์</h5>
+        <select class="form-control" ng-model="app.choice">
+            <option ng-repeat="show in app.name">{{show.name}}</option>
+        </select>
+      </div>
+      <div class="col-xs-12">
+        <h4>{{app.choice}}</h4>
+        <br><br>
+      <div ng-show="app.choice==='R415'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r415">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
+      <div ng-show="app.choice==='R401'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r401">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
+      <div ng-show="app.choice==='R124'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r124">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
+      <div ng-show="app.choice==='R101C'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r101">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
+      <div ng-show="app.choice==='R330A'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r330">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
+      <div ng-show="app.choice==='SW4503'">
+        <ul class="surveys grid">
+          <li class="survey-item" ng-repeat = "data in app.r4503">
+            <span class="survey-name"><b>{{data.int}}</b></span><br>
+            <span class="survey-country grid-only">SWITCH : {{data.name}}</span> <br>
+            <span class="survey-country grid-only">TIME : {{app.setTime(data.time)}}</span>
+            <div class="pull-right">
+              <span class="survey-progress">
+                <span class="survey-progress-bg">
+                  <span class="survey-progress-fg" style="width: {{ 2*(data.rssi+100) }}%;"></span>
+                </span>
+                <span class="survey-progress-labels">
+                  <span class="survey-progress-label">{{(data.port===1)? 'UP' : 'DOWN'}}</span>
+                </span>
+              </span>
+            </div>
+          </li>
+        </ul> <!--close page-->
+      </div> <!--close-->
+      
       </div>
     </div>
   </div>
   <div ng-show="page === 3">
     <div class="container">
-      Time : {{app.loadforgrap}}
+      Time :
+      {{app.loadforgrap}}
       <canvas id="myChart" width="100" height="100"></canvas>
     </div>
   </div>
@@ -101,51 +219,63 @@
     <div class="container">
       <br>
       <div id="content" class="content">
-      	<h4 id="answerTitle">
-          Speed test<span id="ip">202.44.47.252</span>
-      </h4>
-      	<div id="panel">
-      		<div class="verticalLine"></div>
-      		<canvas id="canvas" width="300px" height="300px"></canvas>
-      		<div id="value1" class="value">0</div>
-      		<div id="value2" class="value">1</div>
-      		<div id="value3" class="value">5</div>
-      		<div id="value4" class="value">10</div>
-      		<div id="value5" class="value">20</div>
-      		<div id="value6" class="value">30</div>
-      		<div id="value7" class="value">50</div>
-      		<div id="value8" class="value">75</div>
-      		<div id="value9" class="value">100</div>
-      		<div id="speed" class="b_focusTextSmall"></div>
-      		<div id="unit"></div>
-       		<button id="button" type="button" class="btn btn-bing" data-inst-name="action" data-inst-title="click">Start</button>
-      	</div>
-      	<div id="result">
-      		<div class="verticalLine"></div>
-      		<div id="pingBox" class="resultBox lite">
-      			<div id="pingTitle" class="resultTitle">Ping</div>
-      			<div id="pingValue" class="b_secondaryFocus resultValue">-</div>
-      			<div id="pingBar" class="hidden">
-      				<div id="bar"></div>
-      				<div id="barFill"></div>
-      			</div>
-      		</div>
-      		<div id="downloadBox" class="resultBox lite">
-      			<div id="downloadTitle" class="resultTitle">Download</div>
-      			<div id="downloadValue" class="b_secondaryFocus resultValue">-</div>
-      		</div>
-      		<div id="uploadBox" class="resultBox lite">
-      			<div id="uploadTitle" class="resultTitle">Upload</div>
-      			<div id="uploadValue" class="b_secondaryFocus resultValue">-</div>
-      		</div>
-      	</div>
+        <h4 id="answerTitle">
+          Speed test
+          <span id="ip">202.44.47.252</span>
+        </h4>
+        <div id="panel">
+          <div class="verticalLine"></div>
+          <canvas id="canvas" width="300px" height="300px"></canvas>
+          <div id="value1" class="value">0</div>
+          <div id="value2" class="value">1</div>
+          <div id="value3" class="value">5</div>
+          <div id="value4" class="value">10</div>
+          <div id="value5" class="value">20</div>
+          <div id="value6" class="value">30</div>
+          <div id="value7" class="value">50</div>
+          <div id="value8" class="value">75</div>
+          <div id="value9" class="value">100</div>
+          <div id="speed" class="b_focusTextSmall"></div>
+          <div id="unit"></div>
+          <button id="button" type="button" class="btn btn-bing" data-inst-name="action" data-inst-title="click">Start</button>
+        </div>
+        <div id="result">
+          <div class="verticalLine"></div>
+          <div id="pingBox" class="resultBox lite">
+            <div id="pingTitle" class="resultTitle">Ping</div>
+            <div id="pingValue" class="b_secondaryFocus resultValue">-</div>
+            <div id="pingBar" class="hidden">
+              <div id="bar"></div>
+              <div id="barFill"></div>
+            </div>
+          </div>
+          <div id="downloadBox" class="resultBox lite">
+            <div id="downloadTitle" class="resultTitle">Download</div>
+            <div id="downloadValue" class="b_secondaryFocus resultValue">-</div>
+          </div>
+          <div id="uploadBox" class="resultBox lite">
+            <div id="uploadTitle" class="resultTitle">Upload</div>
+            <div id="uploadValue" class="b_secondaryFocus resultValue">-</div>
+          </div>
+        </div>
       </div>
       <br>
       <!-- <div ng-repeat="show in app.speed">
         Server : {{show.client.ip}}  to : {{show.server.host}} location : {{show.server.country}} : {{show.server.location}} Download: {{show.speeds.download}} upload: {{show.speeds.upload}}isp:{{show.client.isp}} <hr><br>
       </div> -->
       <select multiple class="form-control">
-        <option ng-repeat="show in app.speed">Server : {{show.client.ip}}  to : {{show.server.host}} location : {{show.server.country}} : {{show.server.location}} Download: {{show.speeds.download}} upload: {{show.speeds.upload}}isp:{{show.client.isp}}</option>
+        <option ng-repeat="show in app.speed">Server :
+          {{show.client.ip}}
+          to :
+          {{show.server.host}}
+          location :
+          {{show.server.country}}
+          :
+          {{show.server.location}}
+          Download:
+          {{show.speeds.download}}
+          upload:
+          {{show.speeds.upload}}isp:{{show.client.isp}}</option>
       </select>
     </div>
   </div>

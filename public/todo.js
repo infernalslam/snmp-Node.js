@@ -4,6 +4,7 @@ angular.module('todoApp', [])
     var app = this
     app.title = 'moniting'
     getName()
+    getdata()
     $interval(function () {
       app.current_time = moment(new Date()).format('LTS')
     }, 10)
@@ -19,6 +20,52 @@ angular.module('todoApp', [])
       $http.get('/name').then(function success (response) {
         app.name = response.data
       })
+    }
+    function getdata () {
+      $http.get('/415').then(function success (response) {
+        app.r415 = response.data
+      })
+      $http.get('/101').then(function success (response) {
+        app.r101 = response.data
+      })
+      $http.get('/124').then(function success (response) {
+        app.r124 = response.data
+      })
+      $http.get('/401').then(function success (response) {
+        app.r401 = response.data
+      })
+      $http.get('/330').then(function success (response) {
+        app.r330 = response.data
+      })
+      $http.get('/4503').then(function success (response) {
+        app.r4503 = response.data
+      })
+    }
+    app.select = function (obj) {
+      if (obj === 'R415') {
+        app.pageint = 1
+        console.log(app.pageint)
+      }
+      if (obj === 'R330A') {
+        app.pageint = 2
+        console.log(app.pageint)
+      }
+      if (obj === 'R101C') {
+        app.pageint = 3
+        console.log(app.pageint)
+      }
+      if (obj === 'R124') {
+        app.pageint = 4
+        console.log(app.pageint)
+      }
+      if (obj === 'R40') {
+        app.pageint = 5
+        console.log(app.pageint)
+      }
+      if (obj === 'SW4503') {
+        app.pageint = 6
+        console.log(app.pageint)
+      }
     }
     app.setTime = function (time) {
       return humanizeDuration(time)
@@ -95,4 +142,5 @@ angular.module('todoApp', [])
         })
       }
     }
+    // //////
   })
