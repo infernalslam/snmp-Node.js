@@ -4,13 +4,6 @@ angular.module('todoApp', [])
     var app = this
     app.title = 'moniting'
     getName()
-    getIp()
-    getSubnet()
-    getIproutetype()
-    getIprouteprotocol()
-    getstatus()
-    getnameinterface()
-    getinterfaceTime()
     $interval(function () {
       app.current_time = moment(new Date()).format('LTS')
     }, 10)
@@ -25,41 +18,6 @@ angular.module('todoApp', [])
     function getName () {
       $http.get('/name').then(function success (response) {
         app.name = response.data
-      })
-    }
-    function getIp () {
-      $http.get('/iproute').then(function success (response) {
-        app.iproute = response.data
-      })
-    }
-    function getSubnet () {
-      $http.get('/subnet').then(function success (response) {
-        app.subnet = response.data
-      })
-    }
-    function getIproutetype () {
-      $http.get('/iproutetype').then(function success (response) {
-        app.iproutetype = response.data
-      })
-    }
-    function getIprouteprotocol () {
-      $http.get('/iprouteprotocol').then(function success (response) {
-        app.iprouteprotocol = response.data
-      })
-    }
-    function getstatus () {
-      $http.get('/status').then(function success (response) {
-        app.status = response.data
-      })
-    }
-    function getnameinterface () {
-      $http.get('/interface').then(function success (response) {
-        app.interface = response.data
-      })
-    }
-    function getinterfaceTime () {
-      $http.get('/time').then(function success (response) {
-        app.time = response.data
       })
     }
     app.setTime = function (time) {
@@ -131,7 +89,7 @@ angular.module('todoApp', [])
         console.log('wait here')
       } if (pass) {
         app.speed.forEach(function (err, index) {
-          console.log(app.label)
+          console.log(app.data)
           app.label.push(app.speed[index].server.sponsor)
           app.data.push(app.speed[index].speeds.download)
         })

@@ -2,64 +2,96 @@ var express = require('express')
 var app = express()
 var snmp = require('snmp-native')
 var speedTest = require('speedtest-net')
-// var net_snmp = require('net-snmp')
-// var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
-// mongoose.connect('mongodb://localhost:27017/db_network')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-// var data = require('./models/data/data.route.js')
-// app.use('/api/data', data)
-// var host = '10.1.160.1' // fitmwifi
-var host = '10.41.160.1' // fitmwifi
-// 10.4.15.1
-// 10.12.160.1
-// 172.23.176.1
 var community = 'public'
-var session = new snmp.Session({ host: host, community: community })
-var session2 = new snmp.Session({ host: host, community: community })
-var session3 = new snmp.Session({ host: host, community: community })
-var session4 = new snmp.Session({ host: host, community: community })
-var session5 = new snmp.Session({ host: host, community: community })
-var oid1 = [1, 3, 6, 1, 2, 1, 1]
-var oid3 = '.1.3.6.1.2.1.4.21.1.11' // subnet
-var oid4 = '.1.3.6.1.2.1.4.21.1.1' // iproute
+// ///// set interval ////////
 setRequestTime()
 setInterval(function () {
   setRequestTime()
 }, 10000)
-
+// /////////////////////////
 var vb = []
-var ip = []
-var subnet = []
-var iproute = []
-var vlan = []
-var speed = []
-
-session.getSubtree({ oid: oid1 }, function (err, varbinds) {
+var oid1 = [1, 3, 6, 1, 2, 1, 1]
+// http://10.9.99.2/
+var sw4503 = new snmp.Session({ host: '10.9.99.2', community: community })
+sw4503.getSubtree({ oid: oid1 }, function (err, varbinds) {
   vb.push({
     discription: varbinds[0].value,
     uptime: varbinds[2].value,
     name: varbinds[4].value
   })
   // console.log(vb[0].name)
-  session.close()
+  sw4503.close()
 })
-session3.getSubtree({ oid: oid3 }, function (err, varbinds) {
-  varbinds.forEach(function (data) {
-    subnet.push({
-      subnet: data.value
-    })
+var r415 = new snmp.Session({ host: '10.41.160.1', community: community })
+r415.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
   })
-  session3.close()
+  // console.log(vb[0].name)
+  r415.close()
 })
-session4.getSubtree({ oid: oid4 }, function (err, varbinds) {
-  varbinds.forEach(function (data) {
-    iproute.push({iproute: data.value})
+var r124 = new snmp.Session({ host: '10.1.201.1', community: community })
+r124.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
   })
-  session4.close()
+  // console.log(vb[0].name)
+  r124.close()
 })
-// //////// momgodb ///////
+var r101c = new snmp.Session({ host: '10.1.101.1', community: community })
+r101c.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
+  })
+  // console.log(vb[0].name)
+  r101c.close()
+})
+
+var r101c = new snmp.Session({ host: '10.1.101.1', community: community })
+r101c.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
+  })
+  // console.log(vb[0].name)
+  r101c.close()
+})
+
+var r330a = new snmp.Session({ host: '10.3.24.1', community: community })
+r330a.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
+  })
+  // console.log(vb[0].name)
+  r330a.close()
+})
+
+var r401 = new snmp.Session({ host: '10.4.101.1', community: community })
+r401.getSubtree({ oid: oid1 }, function (err, varbinds) {
+  vb.push({
+    discription: varbinds[0].value,
+    uptime: varbinds[2].value,
+    name: varbinds[4].value
+  })
+  // console.log(vb[0].name)
+  r401.close()
+})
+
+// ////////////////////////////next methord //////////////////////////////////////////////
+var speed = []
+// //////// speed ///////
 function setRequestTime () {
   var test = speedTest({maxTime: 10000})
   test.on('data', function (data) {
@@ -67,118 +99,291 @@ function setRequestTime () {
     speed.push(data)
   })
 }
-// //////////////////////////////
-// admin work
-var name_interface = []
-var nameinterface = new snmp.Session({ host: host, community: community })
-var oid_nameinterface = '.1.3.6.1.2.1.2.2.1.2'
-nameinterface.getSubtree({ oid: oid_nameinterface }, function (err, varbinds) {
+// ////////////r415////////////////////
+// ///// variable ////////
+var int_415 = []
+var port_415 = []
+var time_415 = []
+var data415 = []
+// ///// interface ////////
+var getintR415 = new snmp.Session({ host: '10.4.15.1', community: community })
+var oidget_int = '.1.3.6.1.2.1.2.2.1.2'
+getintR415.getSubtree({ oid: oidget_int }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    // console.log(data.value) 
-    name_interface.push({interface: data.value})
+    int_415.push(data.value)
   })
-  nameinterface.close()
+  getintR415.close()
 })
-
-var type_interface = new snmp.Session({ host: host, community: community })
-var oid_inter = '.1.3.6.1.2.1.2.2.1.3'
-type_interface.getSubtree({ oid: oid_inter }, function (err, varbinds) {
-  varbinds.forEach(function (data) {
-    // console.log(data.value)
-  })
-  type_interface.close()
-})
-
-var type_mtu = new snmp.Session({ host: host, community: community })
-var oid_mtu = '.1.3.6.1.2.1.2.2.1.4'
-type_mtu.getSubtree({ oid: oid_mtu }, function (err, varbinds) {
+// /////// portstatus  ////////////
+var getportR415 = new snmp.Session({ host: '10.4.15.1', community: community })
+var oidget_port = '.1.3.6.1.2.1.2.2.1.8'
+getportR415.getSubtree({ oid: oidget_port }, function (err, varbinds) {
   varbinds.forEach(function (data) {
     // console.log(data.value)
+    port_415.push(data.value)
   })
-  type_mtu.close()
-})
-var type_speed = new snmp.Session({ host: host, community: community })
-var oid_speed = '.1.3.6.1.2.1.2.2.1.6'
-type_speed.getSubtree({ oid: oid_speed }, function (err, varbinds) {
-  varbinds.forEach(function (data) {
-    // console.log(data.value)
-  })
-  type_speed.close()
+  getportR415.close()
 })
 
-var status = []
-var type_status = new snmp.Session({ host: host, community: community })
-var oid_status = '.1.3.6.1.2.1.2.2.1.8'
-type_status.getSubtree({ oid: oid_status }, function (err, varbinds) {
+// .1.3.6.1.2.1.2.2.1.9
+var gettimeR415 = new snmp.Session({ host: '10.4.15.1', community: community })
+var oidget_time = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR415.getSubtree({ oid: oidget_time }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    // console.log(data.value) 
-    status.push({status: data.value})
+    // console.log(int_415)
+    time_415.push(data.value)
   })
-  type_status.close()
+  gettimeR415.close()
+})
+// ////////////////////401/////////////////
+// 10.4.101.1
+// /////////// variable /////////////////
+var int_401 = []
+var port_401 = []
+var time_401 = []
+var data401 = []
+// ///// interface ////////
+var getintR401 = new snmp.Session({ host: '10.4.101.1', community: community })
+var oidget_int401 = '.1.3.6.1.2.1.2.2.1.2'
+getintR401.getSubtree({ oid: oidget_int401 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    int_401.push(data.value)
+  })
+  getintR401.close()
+})
+// /////// portstatus  ////////////
+var getportR401 = new snmp.Session({ host: '10.4.101.1', community: community })
+var oidget_port401 = '.1.3.6.1.2.1.2.2.1.8'
+getportR401.getSubtree({ oid: oidget_port401 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    port_401.push(data.value)
+  })
+  getportR401.close()
 })
 
-var time = []
-var type_statusTime = new snmp.Session({ host: host, community: community })
-var oid_statusTime = '.1.3.6.1.2.1.2.2.1.9'
-type_statusTime.getSubtree({ oid: oid_statusTime }, function (err, varbinds) {
+var gettimeR401 = new snmp.Session({ host: '10.4.101.1', community: community })
+var oidget_time401 = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR401.getSubtree({ oid: oidget_time401 }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    // console.log(data.value)
-    time.push({time: data.value})
+    time_401.push(data.value)
   })
-  type_statusTime.close()
+  gettimeR401.close()
+})
+// ///////////////////////////330////////////////////////////////////////////////
+// /////////// variable /////////////////
+var int_330 = []
+var port_330 = []
+var time_330 = []
+var data330 = []
+// ///// interface ////////
+var getintR330 = new snmp.Session({ host: '10.3.24.1', community: community })
+var oidget_int330 = '.1.3.6.1.2.1.2.2.1.2'
+getintR330.getSubtree({ oid: oidget_int330 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    int_330.push(data.value)
+  })
+  getintR330.close()
+})
+// /////// portstatus  ////////////
+var getportR330 = new snmp.Session({ host: '10.3.24.1', community: community })
+var oidget_port330 = '.1.3.6.1.2.1.2.2.1.8'
+getportR330.getSubtree({ oid: oidget_port330 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    port_330.push(data.value)
+  })
+  getportR330.close()
 })
 
-var iproutetype = []
-var iproute_type = new snmp.Session({ host: host, community: community })
-var oid_iproute_type = '.1.3.6.1.2.1.4.21.1.8'
-iproute_type.getSubtree({ oid: oid_iproute_type }, function (err, varbinds) {
+var gettimeR330 = new snmp.Session({ host: '10.3.24.1', community: community })
+var oidget_time330 = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR330.getSubtree({ oid: oidget_time330 }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    iproutetype.push({type: data.value})
+    time_330.push(data.value)
   })
-  iproute_type.close()
+  gettimeR330.close()
+})
+// //////////////////////// 124 ////////////////////////////////////////////////
+// /////////// variable /////////////////
+var int_124 = []
+var port_124 = []
+var time_124 = []
+var data124 = []
+// ///// interface ////////
+var getintR124 = new snmp.Session({ host: '10.1.201.1', community: community })
+var oidget_int124 = '.1.3.6.1.2.1.2.2.1.2'
+getintR124.getSubtree({ oid: oidget_int124 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    int_124.push(data.value)
+  })
+  getintR124.close()
+})
+// /////// portstatus  ////////////
+var getportR124 = new snmp.Session({ host: '10.1.201.1', community: community })
+var oidget_port124 = '.1.3.6.1.2.1.2.2.1.8'
+getportR124.getSubtree({ oid: oidget_port124 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    port_124.push(data.value)
+  })
+  getportR124.close()
 })
 
-var iprouteprotocol = []
-var iproute_protocol = new snmp.Session({ host: host, community: community })
-var oid_iproute_protocol = '.1.3.6.1.2.1.4.21.1.9'
-iproute_protocol.getSubtree({ oid: oid_iproute_protocol }, function (err, varbinds) {
+var gettimeR124 = new snmp.Session({ host: '10.1.201.1', community: community })
+var oidget_time124 = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR124.getSubtree({ oid: oidget_time124 }, function (err, varbinds) {
   varbinds.forEach(function (data) {
-    iprouteprotocol.push({protocol: data.value})
-  // console.log(data.value)
+    time_124.push(data.value)
   })
-  iproute_protocol.close()
+  gettimeR124.close()
 })
-// ///////////////////////////////////////////////////////////////
+// /////////////////////////////101c////////////////////////////////////////////////
+// /////////// variable /////////////////
+var int_101 = []
+var port_101 = []
+var time_101 = []
+var data101 = []
+// ///// interface ////////
+var getintR101 = new snmp.Session({ host: '10.1.101.1', community: community })
+var oidget_int101 = '.1.3.6.1.2.1.2.2.1.2'
+getintR101.getSubtree({ oid: oidget_int101 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    int_101.push(data.value)
+  })
+  getintR101.close()
+})
+// /////// portstatus  ////////////
+var getportR101 = new snmp.Session({ host: '10.1.101.1', community: community })
+var oidget_port101 = '.1.3.6.1.2.1.2.2.1.8'
+getportR101.getSubtree({ oid: oidget_port101 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    port_101.push(data.value)
+  })
+  getportR101.close()
+})
+
+var gettimeR101 = new snmp.Session({ host: '10.1.101.1', community: community })
+var oidget_time101 = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR101.getSubtree({ oid: oidget_time101 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    time_101.push(data.value)
+  })
+  gettimeR101.close()
+})
+// ////////////////////////////sw4503 ///////////////////////////////////////////
+// /////////// variable /////////////////
+var int_4503 = []
+var port_4503 = []
+var time_4503 = []
+var data4503 = []
+// ///// interface ////////
+var getintR4503 = new snmp.Session({ host: '10.9.99.2', community: community })
+var oidget_int4503 = '.1.3.6.1.2.1.2.2.1.2'
+getintR4503.getSubtree({ oid: oidget_int4503 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    int_4503.push(data.value)
+  })
+  getintR4503.close()
+})
+// /////// portstatus  ////////////
+var getportR4503 = new snmp.Session({ host: '10.9.99.2', community: community })
+var oidget_port4503 = '.1.3.6.1.2.1.2.2.1.8'
+getportR4503.getSubtree({ oid: oidget_port4503 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    port_4503.push(data.value)
+  })
+  getportR4503.close()
+})
+
+var gettimeR4503 = new snmp.Session({ host: '10.9.99.2', community: community })
+var oidget_time4503 = '.1.3.6.1.2.1.2.2.1.9'
+gettimeR4503.getSubtree({ oid: oidget_time4503 }, function (err, varbinds) {
+  varbinds.forEach(function (data) {
+    time_4503.push(data.value)
+  })
+  gettimeR4503.close()
+})
+// ///////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////
+// ///////////////////// api get source //////////////////////////////////////////
 app.get('/name', function (req, res) {
   res.send(vb)
-})
-app.get('/subnet', function (req, res) {
-  res.send(subnet)
-})
-app.get('/iproute', function (req, res) {
-  res.send(iproute)
 })
 app.get('/speed', function (req, res) {
   res.send(speed)
 })
-app.get('/vlan', function (req, res) {
-  res.send(vlan)
+app.get('/415', function (req, res) {
+  int_415.forEach(function (err, index) {
+    var set = {
+      name: '415',
+      int: int_415[index],
+      port: port_415[index],
+      time: time_415[index]
+    }
+    data415.push(set)
+  })
+  res.send(data415)
 })
-app.get('/iproutetype', function (req, res) {
-  res.send(iproutetype)
+app.get('/401', function (req, res) {
+  int_401.forEach(function (err, index) {
+    var set = {
+      name: '401',
+      int: int_401[index],
+      port: port_401[index],
+      time: time_401[index]
+    }
+    data401.push(set)
+  })
+  res.send(data401)
 })
-app.get('/iprouteprotocol', function (req, res) {
-  res.send(iprouteprotocol)
+app.get('/330', function (req, res) {
+  int_330.forEach(function (err, index) {
+    var set = {
+      name: '330',
+      int: int_330[index],
+      port: port_330[index],
+      time: time_330[index]
+    }
+    data330.push(set)
+  })
+  res.send(data330)
 })
-app.get('/status', function (req, res) {
-  res.send(status)
+app.get('/124', function (req, res) {
+  int_124.forEach(function (err, index) {
+    var set = {
+      name: '124',
+      int: int_124[index],
+      port: port_124[index],
+      time: time_124[index]
+    }
+    data124.push(set)
+  })
+  res.send(data124)
 })
-app.get('/interface', function (req, res) {
-  res.send(name_interface)
+app.get('/101', function (req, res) {
+  int_101.forEach(function (err, index) {
+    var set = {
+      name: '101C',
+      int: int_101[index],
+      port: port_101[index],
+      time: time_101[index]
+    }
+    data101.push(set)
+  })
+  res.send(data101)
 })
-app.get('/time', function (req, res) {
-  res.send(time)
+app.get('/4503', function (req, res) {
+  int_4503.forEach(function (err, index) {
+    var set = {
+      name: 'SW4503',
+      int: int_4503[index],
+      port: port_4503[index],
+      time: time_4503[index]
+    }
+    data4503.push(set)
+  })
+  res.send(data4503)
 })
+// ////////////////server localhost /////////////////////////
 app.use(express.static('public'))
 app.listen(7001, function () {
   console.log('Example app listening on port 7001!')

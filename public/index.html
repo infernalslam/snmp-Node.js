@@ -56,10 +56,10 @@
         discription : {{show.discription}}
         <br> uptime :{{app.setTime(show.uptime)}}
         <br> name : {{show.name}}
+        <hr>
+        <br>
       </div>
-      <hr>
-      <br>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xs-2">
           <div ng-repeat="show in app.iproute">
             {{show.iproute[0]}}.{{show.iproute[1]}}.{{show.iproute[2]}}.{{show.iproute[3]}}
@@ -80,26 +80,14 @@
             {{(show.protocol ===2 ? 'local' : 'rip')}}
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- container-->
     </div>
-  </div>
+  </div> <!--close page1-->
   <div ng-show="page === 2">
     <div class="container">
       <div class="col-xs-2">
-        <div ng-repeat="show in app.interface">
-          {{show.interface}}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div ng-repeat="show in app.status">
-          {{(show.status === 1 ? 'up' : 'down')}}
-        </div>
-      </div>
-      <div class="col-xs-5">
-        <div ng-repeat="show in app.time">
-          {{app.setTime(show.time)}}
-        </div>
+        update....
       </div>
     </div>
   </div>
