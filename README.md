@@ -13,7 +13,7 @@ node index.js (localhost)
 ## Install Monitor
 
 ```
-$ git clone https://github.com/infernalslam/reservation_hotel.git
+$ git clone https://github.com/infernalslam/snmp-Node.js.git
 $ node index.js
 ```
 ```
