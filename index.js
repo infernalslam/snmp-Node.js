@@ -10,7 +10,7 @@ var community = 'public'
 setRequestTime()
 setInterval(function () {
   setRequestTime()
-}, 10000)
+}, 5000)
 // /////////////////////////
 var vb = []
 var oid1 = [1, 3, 6, 1, 2, 1, 1]
@@ -93,14 +93,14 @@ r401.getSubtree({ oid: oid1 }, function (err, varbinds) {
 var speed = []
 // //////// speed ///////
 function setRequestTime () {
-  var test = speedTest({maxTime: 10000})
+  var test = speedTest({maxTime: 4000})
   test.on('data', function (data) {
     console.dir(data)
     speed.push(data)
   })
 }
-// ////////////r415////////////////////
-// ///// variable ////////
+////////////r415////////////////////
+///// variable ////////
 var int_415 = []
 var port_415 = []
 var time_415 = []

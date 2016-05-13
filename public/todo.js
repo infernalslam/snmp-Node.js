@@ -15,7 +15,7 @@ angular.module('todoApp', [])
       test()
       getchart()
       app.loadforgrap++
-    }, 7000)
+    }, 5000)
     function getName () {
       $http.get('/name').then(function success (response) {
         app.name = response.data
@@ -79,7 +79,26 @@ angular.module('todoApp', [])
         labels: app.label,
         datasets: [
           {
-            label: '202.44.47.252',
+            label: 'DOWNLOAD',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(0, 255, 0, 0.3)',
+            borderColor: 'rgba(0, 255, 0, 0.3)',
+            borderCapStyle: 'butt',
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(0, 255, 0, 0.3)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(0, 255, 0, 0.3)',
+            pointHoverBorderColor: 'rgba(0, 255, 0, 0.3)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: app.data
+          },{
+            label: 'UPLOAD',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -96,7 +115,7 @@ angular.module('todoApp', [])
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: app.data
+            data: app.data2
           }
         ]
       }
@@ -113,7 +132,7 @@ angular.module('todoApp', [])
     var loading = $interval(function () {
       count++
       console.log(count)
-      if (count === 2) {
+      if (count === 4) {
         app.load = false
         $interval.cancel(loading)
       }
@@ -131,14 +150,22 @@ angular.module('todoApp', [])
     }
     app.label = []
     app.data = []
+    app.data2 =[]
+    app.chartSpeed = []
     function test () {
       if (app.speed.length === 0) {
         console.log('wait here')
       } if (pass) {
-        app.speed.forEach(function (err, index) {
-          console.log(app.data)
-          app.label.push(app.speed[index].server.sponsor)
-          app.data.push(app.speed[index].speeds.download)
+        $http.get('/speed').then(function success (response) {
+          app.chartSpeed = response.data
+          app.label = []
+          app.data = []
+          app.data2 =[]
+          app.chartSpeed.forEach(function (err, index) {
+            app.label.push(app.chartSpeed[index].server.sponsor)
+            app.data.push(app.chartSpeed[index].speeds.download)
+            app.data2.push(app.chartSpeed[index].speeds.upload)
+          })
         })
       }
     }
