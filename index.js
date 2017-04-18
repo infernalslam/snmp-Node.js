@@ -56,16 +56,16 @@ r101c.getSubtree({ oid: oid1 }, function (err, varbinds) {
   r101c.close()
 })
 
-var r101c = new snmp.Session({ host: '10.1.101.1', community: community })
-r101c.getSubtree({ oid: oid1 }, function (err, varbinds) {
-  vb.push({
-    discription: varbinds[0].value,
-    uptime: varbinds[2].value,
-    name: varbinds[4].value
-  })
-  // console.log(vb[0].name)
-  r101c.close()
-})
+// var r101c = new snmp.Session({ host: '10.1.101.1', community: community })
+// r101c.getSubtree({ oid: oid1 }, function (err, varbinds) {
+//   vb.push({
+//     discription: varbinds[0].value,
+//     uptime: varbinds[2].value,
+//     name: varbinds[4].value
+//   })
+//   // console.log(vb[0].name)
+//   r101c.close()
+// })
 
 var r330a = new snmp.Session({ host: '10.3.24.1', community: community })
 r330a.getSubtree({ oid: oid1 }, function (err, varbinds) {
